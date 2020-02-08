@@ -1,0 +1,70 @@
+{% extends 'layout.njk' %}
+
+{% block style %}
+  <link rel="stylesheet" href="/css/video.min.css"/>
+  <style>
+    .video-container {
+      margin: 0 auto;
+      width: 75%;
+      max-width: 900px;
+    }
+    @media (max-width: 767.98px) {
+      .video-container {
+        width: 100%;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="video-container">
+    <video id="player" class="video-js" poster="/img/akari.jpg"></video>
+  </div>
+
+  <nav>
+    <div class="nav nav-tabs mb-3" role="tablist">
+      {% for season in data %}
+        <a class="nav-item nav-link" href="#tab-season{{ loop.index }}" data-toggle="tab" role="tab" aria-selected="false">{{ season.name }}</a>
+      {% endfor %}
+    </div>
+    <div class="tab-content">
+      {% for season in data %}
+        <div class="tab-pane fade" id="tab-season{{ loop.index }}">
+          <div class="list-group">
+            {% for episode in season.episodes %}
+              <button class="episode list-group-item list-group-item-action" data-source="{{ episode.source }}">{{ episode.number }}.{{ episode.title }}</button>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </nav>
+{% endblock %}
+
+{% block script %}
+  <script src="/js/video.min.js"></script>
+  <script>
+    const PLAYER = videojs('player', {
+      controls: true,
+      preload: 'auto',
+      width: '600',
+      height: '400',
+      fluid: true,
+      nativeControlsForTouch: true,
+      userActions: {
+        doubleClick: function () {
+          this.pause()
+        }
+      }
+    })
+
+    $('.episode').click(function () {
+      $('.episode.active').removeClass('active')
+      $(this).addClass('active')
+      PLAYER.src({type:'video/mp4', src: $(this).data('source')})
+      PLAYER.ready(() => {
+        PLAYER.play()
+      })
+    })
+  </script>
+{% endblock %}

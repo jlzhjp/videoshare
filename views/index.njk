@@ -1,0 +1,28 @@
+{% extends 'layout.njk' %}
+
+{% block style %}
+  <style>
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+    }
+    .card {
+      width: 30rem;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex flex-row flex-wrap">
+    {% for series in data %}
+      <div class="card">
+        <img src="{{ series.cover }}" />
+        <h5 class="card-title">{{ series.name }}</h5>
+        <a class="btn btn-primary" href="{{ series.watch_href }}">View</a>
+      </div>
+    {% else %}
+      <div class="alert alert-warning">No series found!</div>
+    {% endfor%}
+  </div>
+{% endblock %}
