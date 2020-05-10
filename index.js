@@ -14,7 +14,7 @@ const getSeriesInfo = () =>
     .map(name => ({
       name,
       cover: fs.existsSync(path.join(VIDEOS_PATH, name, 'cover.png'))
-        ? path.join('/videos', name, 'cover.png') : '/img/akari.jpg',
+        ? path.join('/videos', name, 'cover.png') : '/assets/akari.jpg',
       watch_href: encodeURI(`/watch?name=${encodeURIComponent(name)}`)
     }))
 

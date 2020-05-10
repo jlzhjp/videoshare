@@ -1,0 +1,13 @@
+{
+  "name": "public",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "animate.css": "^4.0.0",
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.5.1",
+    "video.js": "^7.7.6"
+  }
+}
